@@ -7,11 +7,11 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/build',
-    component: () => import('@/views/build/index.vue')
+    component: () => import('@/views/build/Build.vue')
   },
   {
     path: '/preview',
-    component: () => import('@/views/preview/index.vue')
+    component: () => import('@/views/preview/Preview.vue')
   }
 ]
 
