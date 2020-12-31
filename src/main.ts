@@ -1,9 +1,16 @@
-import { createApp } from "vue";
-import App from "./App.vue";
-import router from "./router";
-import store from "./store";
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router'
+import { store, key } from './store/index'
 
-createApp(App)
-  .use(store)
-  .use(router)
-  .mount("#app");
+import { Button, Menu } from 'ant-design-vue'
+
+const app = createApp(App)
+
+app.use(store, key)
+app.use(router)
+
+app.use(Button)
+app.use(Menu)
+
+app.mount('#app')
