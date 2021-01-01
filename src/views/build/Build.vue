@@ -56,6 +56,9 @@ export default defineComponent({
       <a-menu-item key="image">
         图片
       </a-menu-item>
+      <a-menu-item key="x-pie">
+        饼图
+      </a-menu-item>
     </a-sub-menu>
   </a-menu>
   <div style="display: flex;  height: calc(100% - 48px);">
