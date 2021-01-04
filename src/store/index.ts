@@ -2,14 +2,24 @@ import { InjectionKey } from 'vue'
 import { createStore, useStore as baseUseStore, Store } from 'vuex'
 
 export interface State {
-  count: number
+  components: any[]
+  currentComponent: any
 }
 
 export const key: InjectionKey<Store<State>> = Symbol()
 
 export const store = createStore<State>({
   state: {
-    count: 0
+    components: [],
+    currentComponent: null
+  },
+  mutations: {
+    setCurrentComponent(state, payload) {
+      state.currentComponent = payload
+    },
+    setCurrentComponentStyle(state, payload) {
+      state.currentComponent.style = payload
+    }
   }
 })
 

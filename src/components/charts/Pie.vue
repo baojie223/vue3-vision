@@ -1,13 +1,6 @@
 <script lang="ts">
 import { init } from 'echarts'
-import {
-  computed,
-  defineComponent,
-  onMounted,
-  reactive,
-  ref,
-  toRefs
-} from 'vue'
+import { computed, defineComponent, onMounted, reactive, ref, toRefs } from 'vue'
 
 export default defineComponent({
   setup() {

@@ -12,6 +12,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/preview',
     component: () => import('@/views/preview/Preview.vue')
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/build'
   }
 ]
 
