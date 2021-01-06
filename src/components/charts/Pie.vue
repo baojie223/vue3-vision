@@ -1,22 +1,23 @@
-<script lang="ts">
+<script>
 import { init } from 'echarts'
 import { computed, defineComponent, onMounted, reactive, ref, toRefs } from 'vue'
 
 export default defineComponent({
+  name: 'Pie',
   setup() {
     const chart = reactive({
-      instance: null as any,
+      instance: null,
       ref: ref(),
       option: computed(() => {
         const option = {
           tooltip: {
             trigger: 'item',
-            formatter: '{a} <br/>{b}: {c} ({d}%)'
+            formatter: '{a} <br/>{b}: {c} ({d}%)',
           },
           legend: {
             orient: 'vertical',
             left: 10,
-            data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+            data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'],
           },
           series: [
             {
@@ -26,45 +27,45 @@ export default defineComponent({
               avoidLabelOverlap: false,
               label: {
                 show: false,
-                position: 'center'
+                position: 'center',
               },
               emphasis: {
                 label: {
                   show: true,
                   fontSize: '30',
-                  fontWeight: 'bold'
-                }
+                  fontWeight: 'bold',
+                },
               },
               labelLine: {
-                show: false
+                show: false,
               },
               data: [
                 { value: 335, name: '直接访问' },
                 { value: 310, name: '邮件营销' },
                 { value: 234, name: '联盟广告' },
                 { value: 135, name: '视频广告' },
-                { value: 1548, name: '搜索引擎' }
-              ]
-            }
-          ]
+                { value: 1548, name: '搜索引擎' },
+              ],
+            },
+          ],
         }
 
         return option
-      })
+      }),
     })
 
     onMounted(() => {
       chart.instance = init(chart.ref, 'dark', {
         width: 600,
-        height: 400
+        height: 400,
       })
       chart.instance.setOption(chart.option)
     })
 
     return {
-      ...toRefs(chart)
+      ...toRefs(chart),
     }
-  }
+  },
 })
 </script>
 

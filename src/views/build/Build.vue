@@ -1,27 +1,18 @@
-<script lang="ts">
+<script>
 import { defineComponent, reactive, toRefs } from 'vue'
-import { useStore } from '@/store'
 import { SettingOutlined } from '@ant-design/icons-vue'
 import VueDraggable from 'vuedraggable'
 import Wrapper from './Wrapper.vue'
-
-interface VComponent {
-  id: number
-  tag: string
-  attrs?: {}
-  children?: string | unknown[]
-  style?: any
-}
 
 export default defineComponent({
   components: {
     SettingOutlined,
     VueDraggable,
-    Wrapper
+    Wrapper,
   },
   data() {
     return {
-      drag: false
+      drag: false,
     }
   },
   computed: {
@@ -30,12 +21,12 @@ export default defineComponent({
         animation: 200,
         group: 'description',
         disabled: false,
-        ghostClass: 'ghost'
+        ghostClass: 'ghost',
       }
-    }
+    },
   },
   setup() {
-    const state = reactive<{ current: string[]; components: VComponent[] }>({
+    const state = reactive({
       current: [],
       components: [
         {
@@ -47,10 +38,10 @@ export default defineComponent({
             width: '500px',
             height: '500px',
             left: '100px',
-            top: '100px'
-          }
-        }
-      ]
+            top: '100px',
+          },
+        },
+      ],
     })
 
     function addComponent({ key }) {
@@ -59,9 +50,9 @@ export default defineComponent({
 
     return {
       ...toRefs(state),
-      addComponent
+      addComponent,
     }
-  }
+  },
 })
 </script>
 
@@ -69,7 +60,7 @@ export default defineComponent({
   <a-menu v-model:selectedKeys="current" mode="horizontal" @click="addComponent">
     <a-sub-menu>
       <template #title>
-        <span class="submenu-title-wrapper">
+        <span>
           <setting-outlined />
           组件
         </span>
@@ -83,17 +74,19 @@ export default defineComponent({
       <a-menu-item key="x-pie">
         饼图
       </a-menu-item>
+      <a-menu-item key="x-table">
+        表格
+      </a-menu-item>
     </a-sub-menu>
   </a-menu>
-  <div style="display: flex;  height: calc(100% - 48px);">
-    <div style="width: 240px;">
+  <div class="flex" style="height: calc(100% - 48px);">
+    <div class="w-60">
       <VueDraggable
-        class="list-group"
         tag="transition-group"
         :component-data="{
           tag: 'ul',
           type: 'transition-group',
-          name: !drag ? 'flip-list' : null
+          name: !drag ? 'flip-list' : null,
         }"
         v-model="components"
         v-bind="dragOptions"
@@ -102,15 +95,15 @@ export default defineComponent({
         item-key="id"
       >
         <template #item="{ element }">
-          <li style="margin: 8px; padding: 8px;background: #eee;">
+          <li class="m-2 p-2 bg-gray-100">
             {{ element.tag }}
           </li>
         </template>
       </VueDraggable>
     </div>
 
-    <div style="flex: 1; padding: 24px; background: #eee;">
-      <div style="position: relative; height: 100%; background: #fff; box-shadow: 0 9px 28px 8px rgba(0, 0, 0, 0.05)">
+    <div class="flex-1 p-6 bg-gray-100">
+      <div class="relative h-full bg-white shadow-lg">
         <Wrapper v-for="component in components" :key="component.id" :component="component"></Wrapper>
       </div>
     </div>

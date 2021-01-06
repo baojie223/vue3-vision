@@ -1,8 +1,8 @@
 <template>
-  <router-view />
+  <router-view></router-view>
 </template>
 
-<style lang="less">
+<style>
 html,
 body,
 #app {
@@ -12,10 +12,5 @@ body,
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
 }
 </style>
