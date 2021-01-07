@@ -1,8 +1,9 @@
 <script>
-import { defineComponent, reactive, toRefs } from 'vue'
+import { defineComponent } from 'vue'
 import { SettingOutlined } from '@ant-design/icons-vue'
 import VueDraggable from 'vuedraggable'
 import Wrapper from './Wrapper.vue'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   components: {
@@ -26,31 +27,12 @@ export default defineComponent({
     },
   },
   setup() {
-    const state = reactive({
-      current: [],
-      components: [
-        {
-          id: 1,
-          tag: 'a-button',
-          attrs: { type: 'primary', disabled: false },
-          children: '这是按钮',
-          style: {
-            width: '500px',
-            height: '500px',
-            left: '100px',
-            top: '100px',
-          },
-        },
-      ],
-    })
-
-    function addComponent({ key }) {
-      state.components.push({ id: Date.now(), tag: key })
-    }
+    const store = useStore()
 
     return {
-      ...toRefs(state),
-      addComponent,
+      components: store.state.components,
+      addComponent: ({ key }) =>
+        store.commit('addComponent', { id: Date.now(), tag: key, style: { w: 100, h: 100, x: 0, y: 0 } }),
     }
   },
 })
@@ -103,7 +85,7 @@ export default defineComponent({
     </div>
 
     <div class="flex-1 p-6 bg-gray-100">
-      <div class="relative h-full bg-white shadow-lg">
+      <div id="container" class="relative h-full bg-white shadow-lg">
         <Wrapper v-for="component in components" :key="component.id" :component="component"></Wrapper>
       </div>
     </div>
