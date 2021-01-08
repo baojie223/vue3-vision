@@ -27,7 +27,7 @@ export default defineComponent({
     })
 
     function onDragEnd(event) {
-      console.log(event)
+      // console.log(event)
       state.drag = false
     }
 
