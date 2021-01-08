@@ -1,6 +1,17 @@
 import { random } from 'lodash'
 import { createStore } from 'vuex'
 
+export function parsePath(path) {
+  const segments = path.split('.')
+  return function(obj) {
+    for (let i = 0; i < segments.length; i++) {
+      if (!obj) return
+      obj = obj[segments[i]]
+    }
+    return obj
+  }
+}
+
 const store = createStore({
   state: {
     components: [],
@@ -40,6 +51,10 @@ const store = createStore({
     },
     addOriginalComponent: (state, { key, value }) => {
       state.originalComponents[key] = value
+    },
+
+    updateCurrentComponent: (state, { key, value }) => {
+      state.currentComponent.style.w = value
     },
   },
 })

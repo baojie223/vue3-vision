@@ -3,6 +3,7 @@ import { computed, defineComponent, reactive, toRefs } from 'vue'
 import { SettingOutlined } from '@ant-design/icons-vue'
 import VueDraggable from 'vuedraggable'
 import Wrapper from './Wrapper.vue'
+import Config from './Config.vue'
 import { useStore } from 'vuex'
 
 export default defineComponent({
@@ -10,6 +11,7 @@ export default defineComponent({
     SettingOutlined,
     VueDraggable,
     Wrapper,
+    Config,
   },
   setup() {
     const store = useStore()
@@ -42,7 +44,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <a-menu v-model:selectedKeys="current" mode="horizontal" @click="addComponent">
+  <a-menu mode="horizontal" @click="addComponent">
     <a-sub-menu>
       <template #title>
         <span>
@@ -91,6 +93,10 @@ export default defineComponent({
       <div id="container" class="relative h-full bg-white shadow-lg" @click="onContainerClick">
         <Wrapper v-for="component in components" :key="component.id" :component="component"></Wrapper>
       </div>
+    </div>
+
+    <div class="w-60">
+      <Config></Config>
     </div>
   </div>
 </template>

@@ -1,6 +1,6 @@
-import { Button, Menu } from 'ant-design-vue'
+import { Button, Form, InputNumber, Menu } from 'ant-design-vue'
 
-const components = [Button, Menu]
+const components = [Button, Menu, Form, InputNumber]
 
 const antd = {
   install(app) {
