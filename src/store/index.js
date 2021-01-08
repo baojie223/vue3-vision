@@ -1,26 +1,33 @@
+import { random } from 'lodash'
 import { createStore } from 'vuex'
 
 const store = createStore({
   state: {
-    components: [
-      {
-        id: 1,
-        tag: 'a-button',
-        attrs: { type: 'primary', disabled: false },
-        children: '这是按钮',
-        style: {
-          w: 200,
-          h: 200,
-          x: 100,
-          y: 100,
-        },
-      },
-    ],
+    components: [],
     currentComponent: null,
+    originalComponents: {},
+  },
+  getters: {
+    sortedComponents: state => {
+      return state.components.map((item, index) => {
+        let zIndex = index + 1
+        if (item.uid === state.currentComponent?.uid) zIndex = 999
+        return {
+          ...item,
+          style: {
+            ...item.style,
+            zIndex,
+          },
+        }
+      })
+    },
   },
   mutations: {
-    addComponent(state, payload) {
-      state.components.push(payload)
+    addComponent(state, key) {
+      const component = state.originalComponents[key]
+      component.uid = String(random(0, Number.MAX_SAFE_INTEGER))
+      component.name = key
+      state.components.unshift(component)
     },
     setCurrentComponent(state, payload) {
       state.currentComponent = payload
@@ -30,6 +37,9 @@ const store = createStore({
         ...state.currentComponent.style,
         ...payload,
       }
+    },
+    addOriginalComponent: (state, { key, value }) => {
+      state.originalComponents[key] = value
     },
   },
 })

@@ -1,5 +1,5 @@
 <script>
-import { defineComponent } from 'vue'
+import { computed, defineComponent, reactive, toRefs } from 'vue'
 import { SettingOutlined } from '@ant-design/icons-vue'
 import VueDraggable from 'vuedraggable'
 import Wrapper from './Wrapper.vue'
@@ -11,28 +11,31 @@ export default defineComponent({
     VueDraggable,
     Wrapper,
   },
-  data() {
-    return {
+  setup() {
+    const store = useStore()
+
+    const state = reactive({
       drag: false,
-    }
-  },
-  computed: {
-    dragOptions() {
-      return {
+      dragOptions: {
         animation: 200,
         group: 'description',
         disabled: false,
         ghostClass: 'ghost',
-      }
-    },
-  },
-  setup() {
-    const store = useStore()
+      },
+    })
+
+    function onDragEnd(event) {
+      console.log(event)
+      state.drag = false
+    }
 
     return {
-      components: store.state.components,
-      addComponent: ({ key }) =>
-        store.commit('addComponent', { id: Date.now(), tag: key, style: { w: 100, h: 100, x: 0, y: 0 } }),
+      ...toRefs(state),
+      components: computed(() => store.getters.sortedComponents),
+      addComponent: ({ key }) => store.commit('addComponent', key),
+      onContainerClick: () => store.commit('setCurrentComponent', null),
+      onDragEnd,
+      vuex: store.state,
     }
   },
 })
@@ -73,19 +76,19 @@ export default defineComponent({
         v-model="components"
         v-bind="dragOptions"
         @start="drag = true"
-        @end="drag = false"
-        item-key="id"
+        @end="onDragEnd"
+        item-key="uid"
       >
         <template #item="{ element }">
           <li class="m-2 p-2 bg-gray-100">
-            {{ element.tag }}
+            {{ element.name }}
           </li>
         </template>
       </VueDraggable>
     </div>
 
     <div class="flex-1 p-6 bg-gray-100">
-      <div id="container" class="relative h-full bg-white shadow-lg">
+      <div id="container" class="relative h-full bg-white shadow-lg" @click="onContainerClick">
         <Wrapper v-for="component in components" :key="component.id" :component="component"></Wrapper>
       </div>
     </div>

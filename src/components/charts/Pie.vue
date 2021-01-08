@@ -1,8 +1,19 @@
+<config>
+{
+  "style": {
+    "w": 600,
+    "h": 300,
+    "x": 100,
+    "y": 100,
+  }
+}
+</config>
+
 <script>
 import { init } from 'echarts'
-import { computed, defineComponent, onMounted, reactive, ref, toRefs } from 'vue'
+import { computed, onMounted, reactive, ref, toRefs } from 'vue'
 
-export default defineComponent({
+export default {
   name: 'Pie',
   setup() {
     const chart = reactive({
@@ -66,7 +77,7 @@ export default defineComponent({
       ...toRefs(chart),
     }
   },
-})
+}
 </script>
 
 <template>
