@@ -6,6 +6,9 @@ module.exports = {
   extends: ['plugin:vue/vue3-essential', 'eslint:recommended', '@vue/prettier'],
   parserOptions: {
     ecmaVersion: 2020,
+    ecmaFeatures: {
+      jsx: true,
+    },
   },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',

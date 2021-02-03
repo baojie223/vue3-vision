@@ -15,7 +15,8 @@ export default {
 </script>
 
 <template>
-  <div v-if="currentComponent">
+  <div v-if="currentComponent" class="text-blue-800">
+    a
     <a-form-item label="宽度">
       <a-input-number :value="currentComponent.style.w" :min="0" @change="updateCurrentComponent"></a-input-number>
     </a-form-item>

@@ -1,8 +1,17 @@
-<template>
-  <router-view></router-view>
-</template>
+<script>
+export default {
+  setup() {
+    return () => (
+      <>
+        <router-view></router-view>
+        <span class="red">111</span>
+      </>
+    )
+  },
+}
+</script>
 
-<style>
+<style scoped lang="less">
 html,
 body,
 #app {
@@ -12,5 +21,8 @@ body,
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.red {
+  color: red;
 }
 </style>
